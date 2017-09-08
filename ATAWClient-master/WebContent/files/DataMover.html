@@ -1,0 +1,97 @@
+<div class="rightCnt">
+<h3>Anything Anywhere</h3>
+
+<div class="container-fluid">
+<div class="row">
+
+<div id="mainView">
+<div ng-controller="DataMovertCtrl" class="datamoverMain">
+<div class="col-sm-8">
+<form name="myForm">
+<ul class="formSelect form_wrapper">
+<div class="col-sm-6">
+<li>
+<p>Source Instance</p>
+<select title="Select Registered Source Instance from the drop down" ng-model="Sourceinstances" ng-change="GetSourcetable(Sourceinstances)" ng-options="instances for instances in names">
+<!--<select ng-model="Sourceinstances" ng-change="GetDb()" >
+<option ng-repeat="instances in names" id="options{{$index}}"> {{ instances }} </option>-->
+</select>
+</li>
+
+<li>
+<p>Source Object</p>
+<select title="Select Registered Source Object from the drop down"  ng-model="Sourceobject" ng-change="deltaCondition()" ng-options="tbnames for tbnames in tablebnames ">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+<li>
+<p>Source Extract</p>
+<select title="Select Delta for Conditional Source Extract "  ng-model="Sourceextract" ng-change="SourceExt(Sourceextract)">
+<option value="" selected>Select Full or Delta</option>
+<option value="full">Full</option>
+<option value="data">Delta</option>
+</select>
+</li>
+<li>
+<p>Job Name</p>
+<input title="Provide JobName for tracking" type="text" ng-model="jobName" >
+</li>
+<li class="textareadli">
+<p>Delta Load Condition</p>
+<div ng-switch on="Sourceobject" class="textareadiv">
+<textarea title="Gets enabled for providing conditional SQL query " ng-model="sqlquery" ng-disabled="disabled"></textarea>
+</div>
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Target Instance</p>
+<select ng-model="Targetinstances" ng-change="targetGetDb()" ng-options="instances for instances in targetnames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+<li>
+<p>Target Object</p>
+<input type="text" ng-model="targetObject" >
+</li>
+<li>
+<p>Target Load</p>
+<select title="Select type of the Target Load" ng-model="TargetLoad">
+<option value="">Select Type of Load</option>
+<option value="createOverwrite">Truncate and Load</option>
+<option value="Append">Append</option>
+</select>
+</li>
+<li>
+<p>File Sub Type</p>
+<select title="Select type of the Target File" ng-model="Filesubtype">
+<option value="">Select File Type</option>
+      <option value="AVRO">AVRO</option>
+      <option value="Parquet">PARQUET</option>
+      <option value="TEXT">TEXT</option>
+        <option value="EBCIDIC">EBCIDIC</option>
+      <option value="JSON">JSON</option>
+</select>
+</li>
+
+<div class="towBtns">
+<button class="positive" ng-click="dataMoverSubmit()">Submit</button>
+<button class="neutral" ng-click="datamoverReset()">Reset</button>
+</div>
+</div>
+</ul>
+</form>
+</div>
+<div class="col-sm-4">
+<div class="addContentBlock pull-right">
+<h3>Data Mover</h3>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

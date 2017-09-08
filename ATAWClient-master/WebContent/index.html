@@ -1,0 +1,197 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ERP Data Solutions</title>
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/stylesNew.css">
+<link rel="stylesheet" type="text/css" href="css/higgidy_carousel.css">
+<script src="js/angular.1.3.4.min.js"></script>
+<script src="js/ui-bootstrap-1.3.2.js"></script>
+<script src="js/higgidy_carousel.js"></script>
+<script>
+      angular.module("app", ['HiggidyCarousel'])
+        .controller('appController', function($scope) {
+          $scope.images = [
+            {
+              src: "images/slide1.jpg",
+              alt: "image 1"
+              //link: "http://www.higgidy.co.uk"
+            },
+            {
+              src: "images/slide2.jpg",
+              alt: "image 2"
+             // link: "http://www.higgidy.co.uk"
+            },
+			{
+              src: "images/slide1.jpg",
+              alt: "image 1"
+              //link: "http://www.higgidy.co.uk"
+            },
+            {
+              src: "images/slide2.jpg",
+              alt: "image 2"
+             // link: "http://www.higgidy.co.uk"
+            }
+        
+          ]
+        });
+    </script>
+</head>
+
+<body>
+<header>
+<div id="logoDiv" class="">
+<img src="images/gathilogo.png" alt=""/>
+</div>
+</header>
+
+<div id="content">
+<div class="row">
+<!-----------------------slider block-------------------------->
+<div class="col-sm-4">
+<div id="slider">
+<div class="sliderbox" ng-app="app" ng-controller="appController">
+<div higgidy-carousel="images" timeout="10000">
+      <ul higgidy-carousel-images>
+        <li ng-repeat="image in images">
+          <a href="{{image.link}}">
+            <img ng-src="{{image.src}}" alt="{{img.alt}}" />
+          </a>
+        </li>
+      </ul>
+
+      <nav class="links">
+        <ul>
+          <li ng-repeat="image in images">
+            <a href="" ng-click="show($index)" ng-class="{selected: carousel.current == $index}">
+              {{$index}}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>
+</div>
+</div>
+<!-----------------------slider block end-------------------------->
+
+
+<div class="col-sm-8 padLeftZero"><!---------------boxes block---------------->
+
+<div class="col-sm-6">
+<div class="boxCont">
+<div class="contbox">
+<h4>Register Sources<a href="inner.html#/RegisterSources"><img src="images/more.png"></a></h4>
+<p class="col-sm-10">Capability to Register New Instances-Servers, Databases, File System, File and Tables. First Step towards getting started with other capabilities. as onetime setup from .</p>
+
+<span class="iconbox col-sm-2">
+<img src="images/Register-Sources.png" width="75" alt=""/>
+</span>
+</div>
+</div>
+</div>
+
+<div class="col-sm-6">
+<div class="boxCont">
+<div class="contbox">
+<h4>Data Mover<a href="inner.html#/DataMover"><img src="images/more.png"></a></h4>
+<p class="col-sm-10">Provides Capability to Move Any Type and format of Data from Anywhere to Everywhere.</p>
+
+<span class="iconbox col-sm-2">
+<img src="images/datamover.png" width="90" alt=""/>
+</span>
+</div>
+</div>
+</div>
+
+<div class="col-sm-6">
+<div class="boxCont">
+<div class="contbox">
+<h4>Bulk Data Mover<a href="inner.html#/BulkDataMover"><img src="images/more.png"></a></h4>
+<p class="col-sm-10">Capability to select Any or All Object in a Database or File system and move it with to new environment with a Click of a Button.</p>
+
+<span class="iconbox col-sm-2">
+<img src="images/bulkDataMover.png" width="90" alt=""/>
+</span>
+</div>
+</div>
+</div>
+
+<div class="col-sm-6">
+<div class="boxCont">
+<div class="contbox">
+<h4>Test Data Generator<a href="inner.html#/TestDataGenerator"><img src="images/more.png"></a></h4>
+<p class="col-sm-10">Provides one stop shop to generate data for all the requirement. Ensures data is always there to test in any environment.</p>
+
+<span class="iconbox col-sm-2">
+<img src="images/testDataGenerator.png" width="75" alt=""/>
+</span>
+</div>
+</div>
+</div>
+
+<div class="col-sm-6">
+<div class="boxCont">
+<div class="contbox">
+<h4>Federated Queries<a href="inner.html#/FederatedQueries"><img src="images/more.png"></a></h4>
+<p class="col-sm-10">Provides flexibility to connect to different data sources asynchronously at no cost. Save time 
+and money of migrating data to same 
+environment for business consumption.</p>
+
+<span class="iconbox col-sm-2">
+<img src="images/federatedQueries.png" width="100" alt=""/>
+</span>
+</div>
+</div>
+</div>
+
+<div class="col-sm-6">
+<div class="boxCont">
+<div class="contbox">
+<h4>Format Preserving Encryption<a href="inner.html#/FormatPreservingEncryption"><img src="images/more.png"></a></h4>
+<p class="col-sm-10">Provides flexibility to encrypt data on fly and of choice. 512 bit key based encryption.</p>
+
+<span class="iconbox col-sm-2">
+<img src="images/secureEncrypt.png" width="90" alt=""/>
+</span>
+</div>
+</div>
+</div>
+
+<div class="col-sm-6">
+<div class="boxCont">
+<div class="contbox">
+<h4>BI Capabilities <a href="inner.html#/BICapabilities"><img src="images/more.png"></a></h4>
+<p class="col-sm-10">Provides asynchronous reporting capabilities utilizing the Big Data Capabilities.</p>
+
+<span class="iconbox col-sm-2">
+<img src="images/BIcapebilities.png" width="75" alt=""/>
+</span>
+</div>
+</div>
+</div>
+
+<div class="col-sm-6">
+<div class="boxCont">
+<div class="contbox">
+<h4>Dashboard<a href="inner.html#/Dashboard"><img src="images/more.png"></a></h4>
+<p class="col-sm-10">Provides asynchronous reporting capabilities utilizing the Big Data Capabilities.</p>
+
+<span class="iconbox col-sm-2">
+<img src="images/dashboard.png" width="76" alt=""/>
+</span>
+</div>
+</div>
+</div>
+
+</div><!---------------boxes block end---------------->
+
+</div>
+</div>
+<footer>
+© Copyright 2016
+</footer>
+</body>
+</html>

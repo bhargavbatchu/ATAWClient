@@ -1,0 +1,25 @@
+<ul class="formSelect">
+<li>
+<p>Target Instance</p>
+<select ng-model="NewTargetinstances" ng-change="NewtargetGetDb()" ng-options="instances for instances in Newtargetnames">
+</select>
+</li>
+<li>
+<p>Target Database</p>
+<select ng-model="NewTargetdb" ng-change="NewTargetGetTable()" ng-options="dbname for dbname in Newtargetdbnames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+<li>
+<p>Target Object</p>
+<input type="text" ng-model="NewtargetObject" >
+</li>
+<li>
+<p>Target Load</p>
+<select ng-model="NewtargetLoad" ng-change="" >
+	<option value="">Select Replace or Append</option>
+	<option value="createOverwrite">Truncate and Load</option>
+	<option value="Append">Append</option>
+</select>
+</li>
+</ul>

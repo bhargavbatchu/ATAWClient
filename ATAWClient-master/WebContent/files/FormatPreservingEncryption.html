@@ -1,0 +1,120 @@
+<div class="rightCnt">
+<h3> Data Encryption Tool - Format Preserving Encryption</h3>
+
+<div class="container-fluid">
+<div class="row">
+
+<div id="mainView">
+<div ng-controller="FormatPreservingEncryptionCtrl as showCase" class="datamoverMain">
+<div class="col-sm-8">
+<ul class="formSelect form_wrapper">
+<div class="col-sm-6">
+<li>
+<p>Source Instance</p>
+<select title="Select Registered Source Instance where source database is located" ng-model="Sourceinstances" ng-change="GetDb(Source1instances)" ng-options="instances for instances in names">
+<!--<select ng-model="Sourceinstances" ng-change="GetDb()" >-->
+<option ng-repeat="instances in names" id="options{{$index}}"> {{ instances }} </option>
+</select>
+</li>
+
+<li>
+<p>Source Database</p>
+<select title="Select Registered Source Database where source object is located" ng-model="Sourcedb" ng-change="GetTable()" ng-options="dbname for dbname in dbnames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Source Table</p>
+<select title="Select Registered Source Table whose data needs to be encrypted"  ng-model="Sourcetable" ng-change="GetCoulm()" ng-options="tablenames for tablenames in getablenames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+</div>
+</ul>
+
+<div class="col-sm-12 form_wrapper_table">
+<div class="col-xs-6 filter_block">
+<label for="search">Search:</label>
+<input title="Use Search Option to Filter from the table"  ng-model="q" id="search" class="" placeholder="Filter text">
+</div>
+<div class="table_overflow">
+<table class="row-border hover">
+<thead>
+<tr>
+<th>Column Name</th>
+<th>Column Type</th>
+<th>FPE Method</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-hide="nodata">
+<td colspan="7">No data available</td>
+</tr>
+<tr ng-repeat="coulmn in getablecoulmn | filter:q ">
+    <td><input type="text" ng-model="coulmn.COLUMN_NAME"  /></td>
+    <td> <input type="text" ng-model="coulmn.COLUMN_TYPE" value="{{coulmn.COLUMN_TYPE}}({{coulmn.COLUMN_SIZE}})" /></td>
+
+<td> 
+<select id="encript{{$index}}" ng-model="encryptvalue">
+<option value="No" selected>No</option>
+<option value="encryptString">encryptString</option>
+<option value="encryptNumber">encryptNumber</option>
+<option value="encryptDate">encryptDate</option>            
+<option value="encryptCC">encryptCC</option>
+<option value="encryptSSN">encryptSSN</option>     
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<ul class="formSelect form_wrapper">
+<div class="col-sm-6">
+<li>
+<p>Target Instance</p>
+<select title="Select Registered Target Instance where target Database resides" ng-model="Targetinstances" ng-change="targetGetDb()" ng-options="instances for instances in targetnames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+<li>
+<p>Target Database</p>
+<select title="Select Registered Target Database where target Object resides" ng-model="Targetdb" ng-options="dbname for dbname in targetdbnames">
+</select>
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Target Object</p>
+<input title="Provide Registered Target Object where Encrypted data needs to be loaded" type="text" ng-model="targetObject" >
+</li>
+<li>
+<p>Target Load</p>
+<select title="Select mode of load of encypted data" ng-model="TargetLoad">
+<option value="">Select Replace or Append</option>
+<option value="createOverwrite">Truncate and Load</option>
+<option value="Append">Append</option>
+</select>
+</li>
+<div class="towBtns">
+<button class="neutral" ng-click="encryptclearForm()">Clear Form</button>
+<button class="positive" ng-click="encryptLoadfiles()">Load Data</button>
+</div>
+</div>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-sm-4">
+<div class="addContentBlock pull-right">
+<h3>Bulk Data Mover</h3>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+</div>
+</div>
+
+</div>
+</div>
+</div>

@@ -1,0 +1,107 @@
+<div class="rightCnt">
+<h3>Provides Capability to execute queries with data residing on disparate systems </h3>
+
+<div class="container-fluid">
+<div class="row">
+
+<div id="mainView">
+<div ng-controller="FederatedQueriesCtrl" class="datamoverMain federated">
+<div class="col-sm-8">
+<form name="myForm">
+<ul class="formSelect form_wrapper">
+<div class="col-sm-6">
+<li>
+<p>Source Instance</p>
+<select title="Select Registered Source Instance part of the Federated Qry" ng-model="Sourceinstances" ng-change="GetSourcetable(Sourceinstances)" ng-options="instances for instances in names">
+
+</select>
+</li>
+<li>
+<p>Source Object</p>
+<select title="Select Registered Source Object part of the Federated Qry" ng-model="Sourceobject" ng-change="" ng-options="tbnames for tbnames in tablebnames ">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+<li>
+<p>Source Instance</p>
+<select title="Select 2nd Registered Source Instance part of the Federated Qry" ng-model="Sourceinstances2" ng-change="GetSourcetable2(Sourceinstances2)" ng-options="instances for instances in names">
+
+</select>
+</li>
+<li>
+<p>Source Object</p>
+<select title="Select 2nd Registered Source Object part of the Federated Qry" ng-model="Sourceobject2" ng-change="" ng-options="tbnames for tbnames in tablebnames2 ">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+<li>
+<p>Source Instance</p>
+<select title="Select 3rd Registered Source Instance part of the Federated Qry" ng-model="Sourceinstances3" ng-change="GetSourcetable3(Sourceinstances3)" ng-options="instances for instances in names">
+
+</select>
+</li>
+<li>
+<p>Source Object</p>
+<select title="Select 3rd Registered Source Object part of the Federated Qry" ng-model="Sourceobject3" ng-change="" ng-options="tbnames for tbnames in tablebnames3 ">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Target Instance</p>
+<select title="Select Registered Target Instance where output of Federated Qry target object is located" ng-model="Targetinstances" ng-change="" ng-options="instances for instances in targetnames">
+</select>
+</li>
+<li>
+<p>Target Object</p>
+<input title="Provide Registered Target Object where output of Federated Qry needs to be loaded/Stored" type="text" ng-model="targetObject" >
+</li>
+<li>
+<p>Job Name</p>
+<input title="Provide Unique Jobname for Federated Qry" type="text" ng-model="fedjobname" >
+</li>
+<li>
+<p>File Sub Type</p>
+<select title="Select Sub type if the output of Federated Qry is a File" ng-model="Filesubtype">
+<option value="">Select File Type</option>
+<option value="AVRO">AVRO</option>
+<option value="Parquet">PARQUET</option>
+<option value="TEXT">TEXT</option>
+<option value="EBCIDIC">EBCIDIC</option>
+<option value="JSON">JSON</option>
+</select>
+</li>
+<li>
+<p>Target Load</p>
+<select title="Select the mode in which output needs to be stored/loaded" ng-model="TargetLoad">
+<option value="">Select Replace or Append</option>
+<option value="createOverwrite">Truncate and Load</option>
+<option value="Append">Append</option>
+</select>
+</li>
+<li title="Provide Your Federated Qry" class="usertextarea">
+<p> User Query</p>
+<textarea ng-model="userqry" rows="5"></textarea>
+</li>
+<div class="towBtns">
+<button class="neutral" ng-click="qryReset()">Reset</button>
+<button class="positive" ng-click="fedQrySubmit()">Execute Query</button>
+</div>
+</div>
+</ul>
+
+</form>
+</div>
+
+<div class="col-sm-4">
+<div class="addContentBlock pull-right">
+<h3>Federated Queries</h3>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>

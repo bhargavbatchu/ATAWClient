@@ -1,0 +1,370 @@
+<style>
+.main {
+/*white-space: pre-line;*/
+height: 400px;
+/*width: 325px;*/
+display: block;
+background:#fff;
+overflow: auto;
+}
+#mainView{
+	padding:0px;
+}
+.list {
+width: 100%;
+/*height: 100%;
+overflow: hidden;*/
+}
+input, select{
+	width:197px;
+}
+.formSelect li p{
+	width:123px;
+    padding-right: 2px;	
+}
+.col-sm-3{
+	width:24%;
+}
+.col-sm-6{
+	padding:0;
+
+}
+.middleCnt{
+margin:0 0.5%;
+    width: 51%;		
+
+}
+.glyphicon{
+    font-size: 7px;
+    background: #eee;
+    color: #6b6b6b;
+    border: 1px solid #ccc;	
+	padding:2px;
+	vertical-align: top;
+    margin: -1px 0 0px 0;
+}
+</style>  
+<div class="container-fluid">
+<div class="row">
+
+<div class="col-sm-3 padRightZero">
+<div class="leftMenu" >
+<div ng-controller="RegisterSourcesCtrl"> 
+<div class="main">
+<!--<div mb-scrollbar class="list">-->
+<div class="list">
+<ul class="list">
+<li  ng-repeat="menutitles in Menus" class="menus">
+<div class="menutitle" ng-click="InstType = !InstType">
+<!--<span class="glyphicon glyphicon-plus-sign" ng-hide="InstType"></span>
+<span class="glyphicon glyphicon-minus-sign" ng-show="InstType"></span>-->
+<span class="glyphicon glyphicon-plus" ng-hide="InstType"></span>
+<span class="glyphicon glyphicon-minus" ng-show="InstType"></span>
+<span><!--<span class="glyphicon glyphicon-folder-open"></span>-->  
+{{menutitles.MenuTitle}}</span>
+</div>
+
+	<ul ng-show="InstType" ng-animate="{show: 'menu-show', hide: 'menu-hide'}">
+    <li ng-repeat="subMenus in menutitles.MenuSubmenus">
+    <div ng-click="InstName = !InstName" class="Instancename">
+    <span class="glyphicon glyphicon-plus" ng-hide="InstName"></span>
+	<span class="glyphicon glyphicon-minus" ng-show="InstName"></span>
+    <!--<span class="glyphicon glyphicon-folder-open"></span> -->
+    {{subMenus.Instances}}</div>
+    <ul>
+    <li ng-repeat="subChild in subMenus.MenuChilds" ng-show="InstName" class="databases">
+    <span ng-click="database = !database">
+    <span class="glyphicon glyphicon-plus" ng-hide="database"></span>
+    <span class="glyphicon glyphicon-minus" ng-show="database"></span>
+    <!--<span class="glyphicon glyphicon-folder-open"></span> -->
+    {{subChild.database}}</span>
+        <ul>
+        <li ng-repeat="table in subChild.tables" ng-show="database">
+        <div ng-click="tables = !tables" class="tableInstancename">
+    	<span class="glyphicon glyphicon-plus" ng-hide="tables"></span>
+		<span class="glyphicon glyphicon-minus" ng-show="tables"></span>
+    	<!--<span class="glyphicon glyphicon-folder-open"></span> -->
+        {{table.tblname}}
+        {{table.Files}}</div>
+        <ul class="tableColumns">
+        <li ng-repeat="tablecolumn in table.tblcolumns track by $index" ng-show="tables" >
+        <span class="tablcolumn"></span>
+        {{tablecolumn.COLUMN_NAME}}({{tablecolumn.COLUMN_TYPE}}) 
+        <!--<span class="glyphicon glyphicon-file"></span> -->
+        </li>
+        </ul>
+        </li>
+        </ul>
+    </li>
+    </ul>
+    </li>
+	</ul>
+<!--<li>Files</li>
+<li>HDFS</li>-->
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div> 
+</div>
+
+<div class="col-sm-6 padRightZero middleCnt">
+<div class="rightCnt">
+<h3>Register Instances, SOR and Data Sources</h3>
+<div>
+    <div id="tabs" ng-controller="RegTabsCtrl">
+        <ul>
+            <li ng-repeat="tab in Regtabs" 
+                ng-class="{active:isActiveTab(tab.url)}" 
+                ng-click="onClickTab(tab)">{{tab.title}}
+            </li>
+        </ul>
+        <div id="mainView" class="round_border">
+            <div ng-include="currentTab"></div>
+        </div>
+    </div>
+
+<script type="text/ng-template" id="Register_Instance.tpl.html">
+<div ng-controller="RegisterSourcesCtrl"> 
+<div class="col-sm-12 form_wrapper">
+<h4>Register File or Database Instance</h4>
+
+<form name="myForm">
+<ul class="formSelect">
+<div class="col-sm-6">
+<li>
+<p>Type of Instance</p>
+<!--<select ng-model="Sourceinstances" ng-change="GetDb(Source1instances)" ng-options="instances for instances in names" ng-required="true">
+//<option ng-repeat="instances in names" id="options{{$index}}"> {{ instances }} </option>
+//</select>-->
+<select ng-model="instanceType">
+<option value="">Select Database or File</option>
+<option value="DATABASE">Database</option>
+<option value="FILE">File</option>
+<option value="HDFS">HDFS</option>
+</select>
+</li>
+<li>
+<p>Instance Name</p>
+<input type="text" ng-model="instanceName">
+</li>
+<li>
+<p>Host IP Address</p>
+<input type="text" ng-model="hostIpAddress">
+</li>
+<li>
+<p>Port Num</p>
+<input type="text" ng-model="portNumber">
+</li>
+<li>
+<p>URL/Path</p>
+<input type="text" ng-model="urlPath">
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Auth Method</p>
+<!--<select ng-model="Sourceinstances" ng-change="GetDb(Source1instances)" ng-options="instances for instances in names" ng-required="true">
+//<option ng-repeat="instances in names" id="options{{$index}}"> {{ instances }} </option>
+//</select>-->
+<select ng-model="authType">
+<option value="">Type of Auth</option>
+<option value="None">None</option>
+<option value="Username">Username</option>
+<option value="Username_Password">Username / Password</option>
+<option value="Kerboes">Kerboes</option>
+</select>
+</li>
+<li>
+<p>User ID</p>
+<input type="text" ng-model="userId">
+</li>
+<li>
+<p>Password</p>
+<input type="text" ng-model="password">
+</li>
+<li>
+<p>Driver Name</p>
+<input type="text" ng-model="driverName">
+</li>
+
+<div class="towBtns">
+<button class="positive" ng-click="registerInstances()">Register</button>
+<button class="neutral" ng-click="regreset()">Reset</button>
+</div>
+</div>
+</ul>
+</form>
+</div>
+</div>
+</script>
+
+
+
+<script type="text/ng-template" id="Register_SOR.tpl.html">
+<div ng-controller="RegisterSourcesCtrl"> 
+<div class="col-sm-12 form_wrapper">
+<h4>Register a New SOR or Update the Existing SOR</h4>
+<div class="col-sm-6">
+<form name="myForm">
+<ul class="formSelect">
+<li>
+<p>SOR Name</p>
+<input type="text" ng-model="sorName">
+</li>
+<li>
+<p>SOR Description</p>
+<input type="text" ng-model="sorDescription">
+</li>
+<li>
+<p>SOR Owner</p>
+<input type="text" ng-model="sorOwner">
+</li>
+<li>
+<p>Is SOR Active</p>
+<select ng-model="sorActive">
+<option value="">Select Yes or No</option>
+<option value="Yes">Yes</option>
+<option value="No">No</option>
+</select>
+</li>
+<li>
+<p>SOR Code</p>
+<input type="text" ng-model="sorCode">
+</li>
+</ul>
+<div class="towBtns">
+<button class="positive" ng-click="registerSOR()">Register</button>
+<button class="neutral" ng-click="datamoverReset()">Reset</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</script>
+	
+<script type="text/ng-template" id="Register_Files.tpl.html">
+<div ng-controller="RegisterSourcesCtrl"> 
+<div class="col-sm-12 form_wrapper">
+<h4>Register Onetime New File</h4>
+<form name="myForm">
+<ul class="formSelect">
+<div class="col-sm-6">
+<li>
+<p>SOR Name</p>
+<input type="text" ng-model="sorNameReg">
+</li>
+<li>
+<p>File Delimiter</p>
+<select ng-model="delimiter">
+<option value="">Select File Delimiter</option>
+<option value="FixedLength">Fixed Length</option>
+<option value=",">,</option>
+<option value="|">|</option>
+<option value="@">@</option>
+</select>
+</li>
+<li>
+<p>File Frequency </p>
+<select ng-model="frequency">
+<option value="">Select the Frequency</option>
+<option value="Daily">Daily</option>
+<option value="Weekly">Weekly</option>
+<option value="Monthly">Monthly</option>
+<option value="Quarterly">Quarterly</option>
+<option value="Yearly">Yearly</option>
+</select>
+</li>
+<li>
+<p>Type of Instance</p>
+<input type="text" ng-model="typeofInstance">
+</li>
+<li>
+<p>File Layout</p>
+<input type="text" ng-model="fileLayout">
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Token Name</p>
+<input type="text" ng-model="tokenName">
+</li>
+<li>
+<p>File Type</p>
+<select ng-model="RegFiletype">
+<option value="">Select File Type</option>
+<option value="AVRO">Avro</option>
+<option value="Parquet">Parquet</option>
+<option value="Text">Text</option>
+<option value="Ebcidic">Ebcidic</option>
+<option value="Jason">Jason</option>
+</select>
+</li>
+<li>
+<p>File Path</p>
+<input type="text" ng-model="filePath">
+</li>
+<li>
+<p>File Name</p>
+<input type="text" ng-model="fileName">
+</li>
+<div class="towBtns">
+<button class="positive" ng-click="rigisterfile()">Register</button>
+<button class="neutral" ng-click="rigisterfileReset()">Reset</button>
+</div>
+</div>
+</ul>
+</form>
+</div>
+</div>
+</script>
+
+<script type="text/ng-template" id="Register_Tables.tpl.html">
+<div ng-controller="RegisterSourcesCtrl"> 
+<div class="col-sm-12 form_wrapper">
+<h4>Register a New Table for Existing Instance or a New Instance</h4>
+<div class="col-sm-6">
+<form name="myForm">
+<ul class="formSelect">
+<li>
+<p>Source Instance</p>
+<!--<select ng-model="Instancefortable">
+<option>Select from DropDown</option>
+</select>-->
+
+<select ng-model="Instancefortable" ng-options="instances for instances in names" ng-required="true">
+
+</select>
+</li>
+<li>
+<p>Table Name</p>
+<input type="text" ng-model="tableName">
+</li>
+<li>
+<p>DB Name</p>
+<input type="text" ng-model="DBname">
+</li>
+</ul>
+<div class="towBtns">
+<button class="positive" ng-click="registerTable()">Register</button>
+<button class="neutral" ng-click="datamoverReset()">Reset</button>
+</div>
+</form>
+</div>
+</div>
+</script>
+
+</div>
+</div>
+</div>
+<div class="col-sm-3 padLeftZero">
+<div class="Register_addContentBlock pull-right">
+<h3>Bulk Data Mover</h3>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+</div>
+</div>
+</div>
+</div>

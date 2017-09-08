@@ -1,0 +1,271 @@
+
+<div class="rightCnt">
+<h3>Test Data Management</h3>
+<div class="container-fluid">
+<div class="row">
+<div >
+    <div id="tabs" ng-controller="TabsCtrl">
+        <ul>
+            <li ng-repeat="tab in tabs" 
+                ng-class="{active:isActiveTab(tab.url)}" 
+                ng-click="onClickTab(tab)">{{tab.title}}</li>
+        </ul>
+        <div id="mainView">
+		<div class="col-sm-9">
+            <div ng-include="currentTab" class="currentTab"></div>
+		</div>
+		<div class="col-sm-3">
+		<div class="addContentBlock pull-right">
+		<h3>TDM Features</h3>
+		<p>
+<h4>
+1. Select Your Source Instance followed by Source Database and Source Table to get all the Columns of existing table
+2. Use Record Count Column to specify number of records to generate for Unit/performance/regression/UAT Testing
+Meaningful values like proper Names, Address, Phone, CC and others
+Supports file and tables loads
+Easy maintenance, Build on Open Source and User Friendly UI
+Use existing structures or create new structures
+Avoids risk of audit violations due to PII data in lower environment. Its 512 bit Encryption method ensures secured and masked data copy from higher to lower environment.
+
+</h4>
+</p>
+		</div>
+		</div>	
+        </div>
+    </div>
+       
+<script type="text/ng-template" id="one.tpl.html">
+<div ng-controller="TestDataGeneratorCtrl as showCase"> 
+<form name="myForm">
+<ul class="formSelect">
+<div class="col-sm-6">
+<li>
+<p>Source Instance</p>
+<select ng-model="Sourceinstances" ng-change="GetDb(Source1instances)" ng-options="instances for instances in names" ng-required="true">
+<!--<select ng-model="Sourceinstances" ng-change="GetDb()" >
+<option ng-repeat="instances in names" id="options{{$index}}"> {{ instances }} </option>-->
+</select>
+</li>
+<li>
+<p>Source Database</p>
+<select ng-model="Sourcedb" ng-change="GetTable()" ng-options="dbname for dbname in dbnames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Source Table</p>
+<select ng-model="Sourcetable" ng-change="GetCoulm()" ng-options="tablenames for tablenames in getablenames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+<li>
+<p>Record Count</p>
+<input type="text" ng-model="recordCount" required name="recordCount">
+</li>
+</div>
+</ul>
+<div class="col-sm-12">
+<table datatable="ng" class="row-border hover manualsearchtable">
+<thead>
+<tr>
+<th>Column Name</th>
+<th>Column Type</th>
+<th>Column Size</th>
+<th>Select Function</th>
+<th > Reference Query</th>
+<th > ADD or Remove Rows </th>
+
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="coulmn in getablecoulmn">
+
+    <td>{{coulmn.COLUMN_NAME}} <input type="text" ng-model="coulmn.COLUMN_NAME"  /></td>
+    <td> <input type="text" ng-model="coulmn.COLUMN_TYPE" /></td>
+    <td> <input type="text" ng-model="coulmn.COLUMN_SIZE" value="{{coulmn.COLUMN_SIZE}}"/></td>
+<td>
+<select id="select{{$index}}" ng-model="testdataDropdown" ng-change="showQry(testdataDropdown, {{$index}})">
+<option value="">Select the Function</option>
+<option value="getFirstName">getFirstName</option>
+<option value="getReference">getReference</option>
+<option value="getLastName">getLastName</option>
+<option value="getName">getFullName</option>
+<option value="getCity">getCity</option>
+<option value="getAddress">getAddress</option>
+<option value="getBusinessName">getBusinessName</option>
+<option value="getEmailAddress">getEmailAddress</option>
+<option value="getSSN">getSSN</option>
+<option value="getNumberText">getZipCode</option>
+<option value="getCreditCardNumber">getCreditCardNumber</option>
+<option value="getCreditCardNumber">getDebitCardNumber</option>
+<option value="getBirthDate">getBirthDate</option>
+<option value="getNumberUpTo">getNumberUpto</option>
+<option value="getNumber">getNumber</option>
+<option value="getPhoneNumber">getPhoneNumber</option>
+</select>
+</td>
+<td>
+<!--<input type="checkbox" ng-model="x.toDelete" />-->
+<input type="checkbox" value="{{coulmn.COLUMN_NAME}}" data-ng-model="coulmn.selected" data-ng-change="SelectDeselect(coulmn.COLUMN_NAME)" /> <!----> 
+</td>
+<td>
+<div ng-switch on="testdataDropdown" >
+<input type="text" ng-switch-when="getReference" ng-model="inputqry" id="inputqry{{$index}}" class="tableqry" value="Select {{coulmn.COLUMN_NAME}} from {{Sourcedb}}.{{Sourcetable}}" >
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="towBtns">
+<button class="positive" ng-click="addRowbtn()">Add Row</button>
+<button class="negative" data-ng-model="coulmnDelete" data-ng-click="deleteRow()">Delete Row</button>
+</div>
+</div>
+
+<ul class="formSelect">
+<div class="col-sm-6">
+<li>
+<p>Target Instance</p>
+<select ng-model="Targetinstances" ng-change="targetGetDb()" ng-options="instances for instances in targetnames">
+</select>
+</li>
+<li>
+<p>Target Database</p>
+<select ng-model="Targetdb" ng-options="dbname for dbname in targetdbnames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Target Object</p>
+<input type="text" ng-model="targetObject" >
+</li>
+<li>
+<p>Target Load</p>
+<select ng-model="targetLoad" ng-change="" >
+	<option value="">Select Replace or Append</option>
+	<option value="createOverwrite">Truncate and Load</option>
+	<option value="Append">Append</option>
+</select>
+</li>
+</div>
+</ul>
+<div class="col-sm-12">
+<div class="towBtns">
+<button type="submit" class="neutral" ng-click="clearForm()">Clear Form</button>
+<button ng-disabled="myForm.recordCount.$dirty && myForm.recordCount.$invalid" class="positive" ng-click="testDataGenerate()">Generate File</button>
+<button type="submit" class="positive" ng-click="testLoadfiles()">Load File</button>
+</div>
+</div>
+</form>
+</div>
+
+</script>
+	
+<script type="text/ng-template" id="two.tpl.html">
+<div ng-controller="TestDataGeneratorCtrl">
+<div class="col-sm-12">
+<table datatable="ng" class="row-border hover">
+<thead>
+<tr>
+<th>Column Name</th>
+<th>Column Type</th>
+<th>Column Size</th>
+<th>Reference Query</th>
+<th> </th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="coulmn in Newgetablecoulmn">
+
+    <td> <input type="text" ng-model="coulmn.COLUMN_NAME"  /></td>
+    <td> <input type="text" ng-model="coulmn.COLUMN_TYPE" /></td>
+    <td> <input type="text" ng-model="coulmn.COLUMN_SIZE" value="{{coulmn.COLUMN_SIZE}}"/></td>
+<!--<td>{{coulmn.COLUMN_NAME}}</td>
+<td>{{coulmn.COLUMN_TYPE}}</td>
+<td>{{coulmn.COLUMN_SIZE}}</td>-->
+<td>
+<select id="newselect{{$index}}">
+<option value="">Select the Function</option>
+<option value="getFirstName">getFirstName</option>
+<option value="getLastName">getLastName</option>
+<option value="getName">getFullName</option>
+<option value="getCity">getCity</option>
+<option value="getAddress">getAddress</option>
+<option value="getBusinessName">getBusinessName</option>
+<option value="getEmailAddress">getEmailAddress</option>
+<option value="getSSN">getSSN</option>
+<option value="getNumberText">getZipCode</option>
+<option value="getCreditCardNumber">getCreditCardNumber</option>
+<option value="getCreditCardNumber">getDebitCardNumber</option>
+<option value="getBirthDate">getBirthDate</option>
+<option value="getNumberUpTo">getNumberUpto</option>
+<option value="getNumber">getNumber</option>
+<option value="getPhoneNumber">getPhoneNumber</option>
+</select>
+</td>
+<td>
+<!--<input type="checkbox" name="" >-->
+<input type="checkbox" value="" data-ng-model="coulmn.selected" data-ng-change="SelectDeselect()" />
+</td>
+</tr>
+</tbody>
+</table>
+<div class="towBtns">
+<button class="positive" ng-click="NewaddRowbtn()">Add Row</button>
+<button class="negative" data-ng-model="coulmnDelete2" data-ng-click="NewdeleteRow()">Delete Row</button>
+</div>
+</div>
+
+<ul class="formSelect">
+<div class="col-sm-6">
+<li>
+<p>Target Instance</p>
+<select ng-model="NewTargetinstances" ng-change="NewtargetGetDb(NewTargetinstances)" ng-options="instances for instances in targetnames">
+</select>
+</li>
+<li>
+<p>Target Database</p>
+<select ng-model="NewTargetdb" ng-change="NewTargetGetTable()" ng-options="dbname2 for dbname2 in Newtargetdbnames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+<li>
+<p>Record Count</p>
+<input type="text" ng-model="NewrecordCount" >
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Target Object</p>
+<input type="text" ng-model="NewtargetObject" >
+</li>
+<li>
+<p>Target Load</p>
+<select ng-model="NewtargetLoad" ng-change="" >
+	<option value="">Select Replace or Append</option>
+	<option value="createOverwrite">Truncate and Load</option>
+	<option value="Append">Append</option>
+</select>
+</li>
+</div>
+</ul>
+<div class="col-sm-12">
+<div class="towBtns">
+<button class="neutral" ng-click="clearForm()">Clear Form</button>
+<button class="positive" ng-click="NewtestDataGenerate()">Generate File</button>
+<button class="positive" ng-click="NewtestLoadfiles()">Load File</button>
+</div>
+</div>
+</div>
+</script>
+</div>
+
+</div>
+</div>
+</div>
+
+

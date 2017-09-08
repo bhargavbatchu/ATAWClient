@@ -1,0 +1,202 @@
+<style>
+.tablebox{
+	width:100%;
+	height:320px;
+	overflow:auto;
+}
+.tablebox tr td{
+	min-width:100px;
+}
+.glyphicon{
+	color:#fff;
+	display:none;
+}
+</style>
+<div class="rightCnt" ng-controller="DashboardCtrl">
+<div class="fullwidthBarBg bgindex" ng-hide="bartblbg" ng-click="fullscreenbarCancel()"></div>
+<div ng-class="class" class="BarChartbox" ng-hide="bartbl"><owner-directive ownerobject-to-inject="ownerinjectedObject"></owner-directive></div>
+<h3>Dashboard</h3>
+
+<div class="container-fluid">
+<div class="row">
+
+<div id="mainView">
+<div  class="dashboardMain" >
+
+<div class="">
+
+<div class="col-sm-12">
+<div class="col-sm-9 padRightZero padLeftZero">
+<div class="chart-all-wrap">
+<div class="radio-btn-wrapper">
+<ul class="formSelect">
+<li><input type="radio" ng-model="category" value="Yearly" ><p>Yearly</p></li>
+<li><input type="radio" ng-model="category"  value="Monthly" ><p>Monthly</p></li>
+<li><input type="radio" ng-model="category" value="Weekly"  ><p>Weekly</p></li>
+<li><input type="radio" ng-model="category" value="Daily"  ><p>Daily</p></li>
+<li><input type="radio" ng-model="category" value=""  checked><p>All</p></li>
+<li class="totalcount"><p ng-model="tcount">Total Count: {{TotalCnt}}</p></li>
+</ul>
+</div>
+
+<success-directive successobject-to-inject="successinjectedObject"></success-directive>
+<fail-directive failobject-to-inject="failinjectedObject"></fail-directive>
+<running-directive runningobject-to-inject="runninginjectedObject"></running-directive>
+
+</div>
+</div>
+<div class="col-sm-3 padRightZero chart-total-wrap handcursor" ng-click="fullscreenbar()">
+<owner-directive ownerobject-to-inject="ownerinjectedObject"></owner-directive>
+
+
+</div>
+</div>
+
+<div class="col-sm-12">
+<div class="col-sm-9 padRightZero padLeftZero count-label-wrap">
+<div class="col-sm-4">
+<div class="count-label">
+<p ng-model="scount">Success Count: {{successCnt}}</p>
+</div>
+</div>
+<div class="col-sm-4">
+<div class="count-label">
+<p ng-model="fcount">Failed Count: {{FailedCnt}}</p>
+</div>
+</div>
+<div class="col-sm-4">
+<div class="count-label">
+<p ng-model="rcount">Running Count: {{RunningCnt}}</p>
+</div>
+</div>
+</div>
+<div class="col-sm-3 padRightZero">
+<div class="count-label">
+<p ng-model="tcount">Total Count: {{TotalCnt}}</p>
+</div>
+</div>
+</div>
+
+<div class="col-sm-12 margintopvalue">
+<div class="col-sm-9 form_wrapper_table">
+<div class="col-xs-6 filter_block">
+<label for="search">Search:</label>
+<input ng-model="q" id="search" class="" placeholder="Filter text">
+</div>
+<div class="tablebox">
+<!--<scrollable-table watch="visibleProjects">ng-tablescroll-->
+<!--<table id="tabledata" class="table row-border hover round_border dashboardtable" fixed-header>-->
+<scrollable-table  watch="dashnames">
+<table id="dashtable">
+<thead>
+<tr>
+<th sortable-header>Pkg ID</th>
+<th sortable-header>Job Name</th>
+<th sortable-header>Source Instance</th>
+<th sortable-header>Source Object</th>
+<th sortable-header>Target Instance</th>
+<th sortable-header>Target Object</th>
+<th sortable-header>Job Description</th>
+<th sortable-header>Owner</th>
+<th sortable-header>Job Freq</th>
+<th sortable-header>Start Date</th>
+<th sortable-header>End Date</th>
+<th sortable-header>Job Status</th>
+<th sortable-header>Record Read Cnt</th>
+<th sortable-header>Record Write Cnt</th>
+<th sortable-header>Total Duration</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="dashname in dashnames | filter:q">
+<td title="Pkg ID">{{dashname.PkgID}}</td>
+<td title="Job Name">{{dashname.JobName}}</td>
+<td title="Source Instance">{{dashname.SourceInstance}}</td>
+<td title="Source Object">{{dashname.SourceObject}}</td>
+<td title="Target Instance">{{dashname.TargetInstance}}</td>
+<td title="Target Object">{{dashname.TargetObject}}</td>
+<td title="Job Description">{{dashname.JobDescription}}</td>
+<td title="Owner">{{dashname.Owner}}</td>
+<td title="Job Freq">{{dashname.JobFreq}}</td>
+<td title="Start Date">{{dashname.StartTime}}</td>
+<td title="End Date">{{dashname.EndTime}}</td>
+<td title="Job Status">{{dashname.JobStatus}}</td>
+<td title="Record Read Cnt">{{dashname.RecordReadCnt}}</td>
+<td title="Record Write Cnt">{{dashname.RecordWriteCnt}}</td>
+<td title="Total Duration">{{dashname.TotalDuration}}</td>
+
+
+</tr>
+</tbody>
+</table>
+</scrollable-table>
+</div>
+<!--<div class="towBtns">
+<button class="positive genReport" >Generate Report</button>
+</div>-->
+</div>
+
+<div class="col-sm-3 padRightZero">
+<div class="Dashboard_addContentBlock">
+<ul class="formSelect">
+<h3>Search Reports</h3>
+<li>
+<p>Job Name</p>
+<input type="text" ng-model="searchJobname" >
+</li>
+<li>
+<p>Owner</p>
+<input type="text" ng-model="searchOwner" >
+</li>
+<li class="right-inner-addon">
+<p>Start Date</p>
+
+<datepicker date-format="yMMdd" >
+  <input type="text" ng-model="startDate" class="date-picker-field">
+<span class="glyphicon glyphicon-calendar"></span>
+</datepicker>
+</li>
+
+<li class="right-inner-addon">
+<p>End Date</p>
+<!--<input type="text" ng-model="searchEndTime" class="date-picker-field" data-date-format="yyyy-mm-dd">-->
+<datepicker date-format="yMMdd"  >
+  <input type="text" ng-model="endDate" class="date-picker-field" >
+<span class="glyphicon glyphicon-calendar"></span>
+</datepicker>
+</li>
+
+<li>
+<p>JobFreq</p>
+<input type="text" ng-model="searchJobFreq" >
+</li>
+
+<li>
+<p>Job Status</p>
+<input type="text" ng-model="searchJobStatus" >
+</li>
+<div class="towBtns">
+<!--<button class="positive" ng-click="searchSubmit()">Submit</button>-->
+<button class="neutral" ng-click="searchSubmit()">Search</button>
+</div>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+
+</script>    
+
+
+
+
+
+
+

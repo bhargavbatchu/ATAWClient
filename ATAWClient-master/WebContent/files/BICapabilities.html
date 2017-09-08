@@ -1,0 +1,389 @@
+<style>
+.tansbg{
+position:fixed;
+top:0;
+left:0;
+background:rgba(0,0,0,0.27);
+width: 100%;
+height: 100%;	
+}
+.sliderbox{
+background:rgba(0,75,120,0.5);
+padding:20px;
+margin:2% auto;
+border-radius:10px;
+}
+.sliderbox h3{
+margin-top:0;
+background: #004b79;
+color: #fff;
+padding: 5px 0;	
+}
+.mainbox{
+background:#fff;
+position:relative;
+}
+.closebtn{
+position:absolute;
+top:-5px;
+right:-5px;
+width:20px;
+height:20px;
+background:red;
+border-radius:20px;
+color:#fff;
+text-align:center;	
+cursor:pointer;
+}
+.slider {
+width: 800px;
+height: 520px;
+overflow: hidden;
+position: relative;
+margin-top: 0px;
+}
+.slide {
+position: absolute;
+top: 0;
+left: 0;
+}
+.arrow {
+position: absolute;
+z-index: 1002;
+display: block;
+top: 50%;
+margin-top: -35px;
+width: 51px;
+height: 51px;
+outline: none;
+cursor: pointer;
+background: url(images/img/blank.gif) no-repeat;
+}
+.arrow.prev {
+opacity: 0.8;
+left: 2px;
+background-image: url(images/img/paddle_prev_999.png);
+transition: 0.2s linear all;
+}
+.arrow.next {
+opacity: 0.8;
+right: 2px;
+background-image: url(images/img/paddle_next_999.png);
+transition: 0.2s linear all;
+}
+.arrow.prev:hover {
+opacity: 1;
+background-image: url(images/img/paddle_prev_fff.png);
+}
+.arrow.next:hover {
+opacity: 1;
+background-image: url(images/img/paddle_next_fff.png);
+}
+.nonDraggableImage{
+-webkit-user-drag: none;
+max-width:100%;
+}
+</style>
+<div class="rightCnt">
+<h3>BI-Visualization Capabilities</h3>
+
+<div class="container-fluid">
+<div class="row">
+
+<div id="mainView">
+<div ng-controller="BICapabilitiesCtrl">
+<div class="BICapabilities">
+                <!--<div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                               <div class="col-xs-12">
+                                <h2>University <br/> and Students</h2>
+                                </div>
+                                <div class="col-xs-12">
+                                <i class="glyphicon glyphicon-education"></i>
+                                </div>
+     
+                            </div>
+                        </div>
+                        <a href="" ng-click="openStudents()">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>-->
+                <div class="col-lg-2 col-md-4">
+                    <div class="panel panel-skyblue">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2>Social Media</h2>
+                                </div>                            
+                                <div class="col-xs-12">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" ng-click="openSocialMedia()">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+				<div class="col-lg-2 col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                               <div class="col-xs-12">
+                                <h2>Skill Matching</h2>
+                                </div>
+                                <div class="col-xs-12">
+                                <i class="glyphicon glyphicon-education"></i>
+                                </div>
+     
+                            </div>
+                        </div>
+                        <a href="" ng-click="openSkill()">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2>Location</h2>
+                                </div>                            
+                                <div class="col-xs-12">
+                                    <i class="glyphicon glyphicon-globe"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" ng-click="openLocation()">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2>Payments</h2>
+                                </div>                            
+                                <div class="col-xs-12">
+                                    <i class="glyphicon glyphicon-credit-card"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" ng-click="openPayments()">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <h2>Rest all others <br/> under customer</h2>
+                                </div>                            
+                                <div class="col-xs-12">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" ng-click="openOthers()">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="glyphicon glyphicon-circle-arrow-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+               
+</div>  
+
+<!--<div ng-controller="universityStudentsCntrl">
+<div class="tansbg" ng-show="universityStudents" >
+<div class="sliderbox">
+<div class="mainbox">
+<div class="closebtn" ng-click="hidetrans()">X</div>
+<h3>University and Students</h3>
+<div class="slider">
+    <img ng-repeat="slide in students" class="slide slide-animation nonDraggableImage"
+         ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}" alt="">
+
+    <a class="arrow prev" ng-click="nextSlide()"></a>
+    <a class="arrow next" ng-click="prevSlide()"></a>
+<!--    <nav class="nav">
+        <div class="wrapper">
+            <ul class="dots">
+                <li class="dot" ng-repeat="slide in students">
+                    <a ng-class="{'active':isCurrentSlideIndex($index)}"
+                       ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a></li>
+            </ul>
+        </div>
+    </nav>-->
+<!--</div>
+</div>
+</div>  
+</div>
+</div>-->
+
+<div ng-controller="skillMatchingCntrl">
+<div class="tansbg" ng-show="skillMatching" >
+<div class="sliderbox">
+<div class="mainbox">
+<div class="closebtn" ng-click="hidetrans()">X</div>
+<h3>Skill Matching</h3>
+<div class="slider">
+    <img ng-repeat="slide in skills" class="slide slide-animation nonDraggableImage"
+         ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}" alt="">
+
+    <a class="arrow prev" ng-click="nextSlide()"></a>
+    <a class="arrow next" ng-click="prevSlide()"></a>
+<!--    <nav class="nav">
+        <div class="wrapper">
+            <ul class="dots">
+                <li class="dot" ng-repeat="slide in students">
+                    <a ng-class="{'active':isCurrentSlideIndex($index)}"
+                       ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a></li>
+            </ul>
+        </div>
+    </nav>-->
+</div>
+</div>
+</div>  
+</div>
+</div>
+
+<div ng-controller="locationCntrl">
+<div class="tansbg" ng-show="locatorSlide">
+<div class="sliderbox">
+<div class="mainbox">
+<div class="closebtn" ng-click="hidetrans()">X</div>
+<h3>Location</h3>
+<div class="slider">
+    <img ng-repeat="slide in location" class="slide slide-animation nonDraggableImage"
+         ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}" alt="">
+
+    <a class="arrow prev" ng-click="nextSlide()"></a>
+    <a class="arrow next" ng-click="prevSlide()"></a>
+<!--    <nav class="nav">
+        <div class="wrapper">
+            <ul class="dots">
+                <li class="dot" ng-repeat="slide in location">
+                    <a ng-class="{'active':isCurrentSlideIndex($index)}"
+                       ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a></li>
+            </ul>
+        </div>
+    </nav>-->
+</div>
+</div>   
+</div>
+</div>
+</div>
+<div ng-contoller="socialMediaCntrl">
+<div class="tansbg" ng-show="socialMediaSlide">
+<div class="sliderbox">
+<div class="mainbox">
+<div class="closebtn" ng-click="hidetrans()">X</div>
+<h3>Social Media</h3>
+<div class="slider">
+      <div id="vizContainer" style="width:800px; height:700px;"></div>
+
+</div>
+</div>   
+</div>
+</div>
+</div> 
+
+<div ng-controller="paymentsCntrl">
+<div class="tansbg" ng-show="paymentsSlide">
+<div class="sliderbox">
+<div class="mainbox">
+<div class="closebtn" ng-click="hidetrans()">X</div>
+<h3>Payments</h3>
+<div class="slider">
+    <img ng-repeat="slide in payment" class="slide slide-animation nonDraggableImage"
+         ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}" alt="">
+
+    <a class="arrow prev" ng-click="nextSlide()"></a>
+    <a class="arrow next" ng-click="prevSlide()"></a>
+<!--    <nav class="nav">
+        <div class="wrapper">
+            <ul class="dots">
+                <li class="dot" ng-repeat="slide in payment">
+                    <a ng-class="{'active':isCurrentSlideIndex($index)}"
+                       ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a></li>
+            </ul>
+        </div>
+    </nav>-->
+</div>
+</div>   
+</div>
+</div>
+</div>
+<script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<script type="text/javascript" src="http://public.tableausoftware.com/javascripts/api/tableau_v8.js"></script>
+  
+   
+ 
+<div ng-controller="otherCustmrCntrl">
+<div class="tansbg" ng-show="otherCustmrSlide">
+<div class="sliderbox">
+<div class="mainbox">
+<div class="closebtn" ng-click="hidetrans()">X</div>
+<h3>Others</h3>
+<div class="slider">
+    <img ng-repeat="slide in othercustmr" class="slide slide-animation nonDraggableImage"
+         ng-swipe-right="nextSlide()" ng-swipe-left="prevSlide()"
+         ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}" alt="">
+
+    <a class="arrow prev" ng-click="nextSlide()"></a>
+    <a class="arrow next" ng-click="prevSlide()"></a>
+<!--    <nav class="nav">
+        <div class="wrapper">
+            <ul class="dots">
+                <li class="dot" ng-repeat="slide in othercustmr">
+                    <a ng-class="{'active':isCurrentSlideIndex($index)}"
+                       ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a></li>
+            </ul>
+        </div>
+    </nav>-->
+</div>
+</div>   
+</div>
+</div>  
+</div>  <!--BI Controller End-->
+</div>
+</div>
+</div>
+</div>
+</div>

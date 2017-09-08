@@ -1,0 +1,112 @@
+<div class="rightCnt">
+<h3>Bulk Data Management</h3>
+
+<div class="container-fluid">
+<div class="row">
+
+<div id="mainView">
+<div ng-controller="BulkDataMoverCtrl as showCase" class="datamoverMain">
+<div class="col-sm-8">
+<ul class="formSelect form_wrapper">
+<div class="col-sm-6">
+<li>
+<p>Source Instance</p>
+<select title="Select Registered Source Instance where target Database resides" ng-model="Sourceinstances" ng-change="GetDb(Source1instances)" ng-options="instances for instances in names">
+<!--<select ng-model="Sourceinstances" ng-change="GetDb()" >-->
+</select>
+</li>
+</div>
+<div class="col-sm-6">
+<li>
+<p>Source Database</p>
+<select title="Select Registered Source Database where Source Tables reside" ng-model="Sourcedb" ng-change="GetTable()" ng-options="dbname for dbname in dbnames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+</div>
+</ul>
+<div class="col-sm-12 form_wrapper_table">
+<div class="col-xs-6 countPagehide">
+<label for="search">items per page:</label>
+<input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+</div>
+<div class="col-xs-6 filter_block">
+<span><label for="search">Search:</label></span>
+<span><input ng-model="q" id="search" class="" placeholder="Filter text"></span>
+</div>
+<div class="table_overflow">
+<table class="row-border hover">
+<thead>
+<tr>
+<th>Table Name</th>
+<th> 
+<input type="checkbox" ng-click="checkAll()" ng-checked="isChecked()"/>
+ </th>
+</tr>
+</thead>
+<tbody ng-model="tblname">
+<tr ng-hide="nodata">
+<td colspan="7">No data available</td>
+</tr>
+<tr ng-repeat="item in tblname | filter:q ">
+<td >{{item.name}}</td>
+<td>
+<input type="checkbox" ng-checked="exists(item, selected)" ng-click="toggleSelection(item, selected)" /> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!--<my-dir></my-dir>-->
+<div ng-controller="OtherController" class="other-controller">
+<div class="text-center">
+<dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="files/dirPagination.html"></dir-pagination-controls>
+</div>
+</div>
+</div>
+
+<ul class="formSelect form_wrapper">
+<div class="col-sm-6">
+<li>
+<p>Target Instance</p>
+<select title="Select Registered Target Instance where target Database resides" ng-model="Targetinstances" ng-change="targetGetDb()" ng-options="instances for instances in targetnames">
+<!--<option ng-repeat="instances in names" > {{ instances }} </option>-->
+</select>
+</li>
+
+<li>
+<p>Target Database</p>
+<select title="Select Registered Target Database where target tables resides" ng-model="Targetdb" ng-options="dbname for dbname in targetdbnames">
+</select>
+</li>
+</div>
+
+<div class="col-sm-6">
+<li>
+<p>Target Load</p>
+<select title="Select mode of load for all the Target tables" ng-model="TargetLoad">
+<option value="">Select</option>
+<option value="createOverwrite">Truncate and Load</option>
+<option value="Append">Append</option>
+</select>
+</li>
+
+<div class="towBtns">
+<button class="positive" ng-click="dataMoverSubmit()">Submit</button>
+<button class="neutral" ng-click="datamoverReset()">Reset</button>
+</div>
+</div>
+</ul>
+</div>
+<div class="col-sm-4">
+<div class="addContentBlock pull-right">
+<h3>Bulk Data Mover</h3>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+<p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
